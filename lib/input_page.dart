@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
+import 'roundIconButton.dart';
 
 enum Gender {
   male,
@@ -18,8 +19,9 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
-
   int height = 180;
+  int weight = 60;
+  int age = 20;
   
 
   Color maleCardColour = inactiveCardColour;
@@ -30,6 +32,7 @@ class _InputPageState extends State<InputPage> {
     return Scaffold(
       backgroundColor: Color(0xFF0A0E21),
       appBar: AppBar(
+        elevation: 1.5,
         backgroundColor: Color(0xFF0A0E21),
         title: Center(
           child: Text(
@@ -138,15 +141,58 @@ class _InputPageState extends State<InputPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:<Widget> [
                           Text('WEIGHT',style: labelTextStyle,),
-
+                          Text(weight.toString(),
+                          style: numberTextStyle,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:<Widget> [
+                              RoundIconButton(icon: FontAwesomeIcons.minus,
+                                onPressed: (){
+                                setState(() {
+                                  weight--;
+                                });
+                                }
+                              ),
+                              SizedBox(width: 10,),
+                              RoundIconButton(icon: FontAwesomeIcons.plus,onPressed: (){
+                                setState(() {
+                                  weight++;
+                                });
+                              },)
+                          ],)
                         ],
                       ),
                   colour: activeCardColor,
                 )),
                 Expanded(
                     child: ReusableCard(
-                  colour: activeCardColor,
-                )),
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:<Widget> [
+                          Text('AGE',style: labelTextStyle,),
+                          Text(age.toString(),
+                            style: numberTextStyle,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:<Widget> [
+                              RoundIconButton(icon: FontAwesomeIcons.minus,
+                                  onPressed: (){
+                                    setState(() {
+                                      age--;
+                                    });
+                                  }
+                              ),
+                              SizedBox(width: 10,),
+                              RoundIconButton(icon: FontAwesomeIcons.plus,onPressed: (){
+                                setState(() {
+                                  age++;
+                                });
+                              },)
+                            ],)
+                        ],
+                      ),
+                      colour: activeCardColor,
+                    )),
               ],
             ),
           ),
@@ -161,3 +207,6 @@ class _InputPageState extends State<InputPage> {
     );
   }
 }
+
+
+
