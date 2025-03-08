@@ -1,9 +1,11 @@
+import 'package:bmi_calculator/screens/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
-import 'constants.dart';
-import 'roundIconButton.dart';
+import 'package:bmi_calculator/components/icon_content.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
+import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/components/roundIconButton.dart';
+import 'package:bmi_calculator/components/bottom_button.dart';
 
 enum Gender {
   male,
@@ -22,7 +24,6 @@ class _InputPageState extends State<InputPage> {
   int height = 180;
   int weight = 60;
   int age = 20;
-  
 
   Color maleCardColour = inactiveCardColour;
   Color femaleCardColour = inactiveCardColour;
@@ -116,7 +117,7 @@ class _InputPageState extends State<InputPage> {
                     overlayShape: RoundSliderOverlayShape(overlayRadius: 30),
                     thumbColor: Color(0xFFEB1555),
                     activeTrackColor: Colors.white,
-                    overlayColor:Color(0x29EB1555),
+                    overlayColor: Color(0x29EB1555),
                     inactiveTrackColor: Color(0xFF8D8E98),
                   ),
                   child: Slider(
@@ -137,76 +138,95 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                     child: ReusableCard(
-                      cardChild: Column(
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'WEIGHT',
+                        style: labelTextStyle,
+                      ),
+                      Text(
+                        weight.toString(),
+                        style: numberTextStyle,
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:<Widget> [
-                          Text('WEIGHT',style: labelTextStyle,),
-                          Text(weight.toString(),
-                          style: numberTextStyle,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children:<Widget> [
-                              RoundIconButton(icon: FontAwesomeIcons.minus,
-                                onPressed: (){
+                        children: <Widget>[
+                          RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
                                 setState(() {
                                   weight--;
                                 });
-                                }
-                              ),
-                              SizedBox(width: 10,),
-                              RoundIconButton(icon: FontAwesomeIcons.plus,onPressed: (){
-                                setState(() {
-                                  weight++;
-                                });
-                              },)
-                          ],)
+                              }),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.plus,
+                            onPressed: () {
+                              setState(() {
+                                weight++;
+                              });
+                            },
+                          )
                         ],
-                      ),
+                      )
+                    ],
+                  ),
                   colour: activeCardColor,
                 )),
                 Expanded(
                     child: ReusableCard(
-                      cardChild: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children:<Widget> [
-                          Text('AGE',style: labelTextStyle,),
-                          Text(age.toString(),
-                            style: numberTextStyle,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children:<Widget> [
-                              RoundIconButton(icon: FontAwesomeIcons.minus,
-                                  onPressed: (){
-                                    setState(() {
-                                      age--;
-                                    });
-                                  }
-                              ),
-                              SizedBox(width: 10,),
-                              RoundIconButton(icon: FontAwesomeIcons.plus,onPressed: (){
-                                setState(() {
-                                  age++;
-                                });
-                              },)
-                            ],)
-                        ],
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'AGE',
+                        style: labelTextStyle,
                       ),
-                      colour: activeCardColor,
-                    )),
+                      Text(
+                        age.toString(),
+                        style: numberTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  age--;
+                                });
+                              }),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.plus,
+                            onPressed: () {
+                              setState(() {
+                                age++;
+                              });
+                            },
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  colour: activeCardColor,
+                )),
               ],
             ),
           ),
-          Container(
-            color: bottomContainerColor,
-            margin: EdgeInsets.only(top: 10),
-            width: double.infinity,
-            height: 80,
-          )
+          BottomButton(buttonTitle: "CALCULATE",onTap:() {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ResultsPage()));
+          } ,)
         ],
       ),
     );
   }
 }
-
 
 
